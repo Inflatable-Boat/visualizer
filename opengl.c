@@ -67,7 +67,7 @@ int Window_Height = 800;
 int clearcolor=1;
 int boundingbox=1;
 int ortho=1;
-int fps=0;
+int fps=1;
 int mouse_shift=0;
 
 
