@@ -1435,23 +1435,26 @@ void temp_movie_rot(void){
   Z_Speed=0;
 }
 
+// please don't ask how this works I have no idea
 void temp_movie_time(int i) {
   int j;
   char pngfilename[255];
-  for(j=0;j<100;j++){
+  for (j = 0; globcur + i < globbuf.gl_pathc; j++) {
+    globcur += i;
     sprintf(pngfilename,"time_series_%.04i.png",j);
+    load();
+    rebuild = 1;
+    redraw = 1;
     cbRenderScene();
-    printf("%i\n",j);
     capture_screen(pngfilename);
-    if(globcur < globbuf.gl_pathc-i) {
-      globcur+=i;
-      load();
-      rebuild=1;
-      redraw=1;
-    } else {
-      break;
-    }
+    // printf("%i\n",j);
   }
+    sprintf(pngfilename,"time_series_%.04i.png",j);
+    load();
+    rebuild=1;
+    redraw=1;
+    cbRenderScene();
+    capture_screen(pngfilename);
 
 }
 
@@ -1629,8 +1632,11 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
    case 106: // j
       temp_movie_time(1);
       break;
-   case 74: // j
+   case 74: // J
       temp_movie_time(10);
+      break;
+   case 109: // m
+      temp_movie_time(100);
       break;
 
    case 97: //a
@@ -2262,6 +2268,7 @@ int main(int argc, char ** argv)
           \\   Jump 10 frames\n\
           j   makes movie jumping 1 frames each step\n\
           J   makes movie jumping 10 frames each step\n\
+          m   makes movie jumping 100 frames each step\n\
           d   nothing interesting.\n\
           v   Calculated the volume fraction of the spheres (not the other objects).\n\
           e   Tests for overlap between spheres. Over lapping spheres are selected.\n\
