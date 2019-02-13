@@ -1698,6 +1698,24 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       redraw=1;
       break;
 
+    case 49: // 1
+      if(globcur > 99) {
+        globcur-=100;
+        load();
+        rebuild=1;
+        redraw=1;
+      }
+      break;
+
+    case 51: // 3
+      if(globcur < globbuf.gl_pathc-100) {
+        globcur+=100;
+        load();
+        rebuild=1;
+        redraw=1;
+      }
+      break;
+
    case 72: //H
       unhide();
       rebuild=1;
@@ -1787,6 +1805,14 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
    case 92: // Backslash 
       if(globcur < globbuf.gl_pathc-10) {
         globcur+=10;
+        load();
+        rebuild=1;
+        redraw=1;
+      }
+      break;
+   case 124: // | 
+      if(globcur > 9) {
+        globcur-=10;
         load();
         rebuild=1;
         redraw=1;
@@ -2266,6 +2292,9 @@ int main(int argc, char ** argv)
           [   Loads previous file.\n\
           ]   Loads next file.\n\
           \\   Jump 10 frames\n\
+          |   Jump back 10 frames\n\
+          1   Jump 100 frames\n\
+          3   Jump back 100 frames \n\
           j   makes movie jumping 1 frames each step\n\
           J   makes movie jumping 10 frames each step\n\
           m   makes movie jumping 100 frames each step\n\
