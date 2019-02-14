@@ -1708,7 +1708,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       break;
 
     case 51: // 3
-      if(globcur < globbuf.gl_pathc-100) {
+      if(globcur < (int)globbuf.gl_pathc-100) {
         globcur+=100;
         load();
         rebuild=1;
@@ -1803,7 +1803,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       }
       break;
    case 92: // Backslash 
-      if(globcur < globbuf.gl_pathc-10) {
+      if(globcur < (int)globbuf.gl_pathc-10) {
         globcur+=10;
         load();
         rebuild=1;
