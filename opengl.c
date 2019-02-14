@@ -2217,7 +2217,7 @@ int main(int argc, char ** argv)
        printf("%c\n",datakind);
        is=2;
      } else {
-       printf("No data kind given hoping for default data!\n");
+      //  printf("No data kind given hoping for default data!\n");
      }
      cmdl_n=argc-is;
      cmdl_s=&argv[is];
