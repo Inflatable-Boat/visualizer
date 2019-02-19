@@ -1458,6 +1458,61 @@ void temp_movie_time(int i) {
 
 }
 
+void printhelp(void) {
+printf("\n" PROGRAM_TITLE "\n\n\
+    F1  Prints this info\n\
+    0   Changes the field of view.\n\
+    9   Changes the field of view.\n\
+    f   Draws information on the screen.\n\
+    o   Switches between orthogonal en perspective projections.\n\
+    b   Toggles drawing of the bounding box.\n\
+    i   Inverts the selection.\n\
+    a   Makes a series of screen shots of the rotating scene.\n\
+    y   Makes a series of screen shots of all snapshots that have been given at the command line.\n\
+    p   Makes a .png screen shot.\n\
+    s   Changes the amount of light.\n\
+    r   Reverses the rotation.\n\
+    +   Increase number of polygons per sphere.\n\
+    -   Decrease number of polygons per sphere.\n\
+    8   Moves up.\n\
+    2   Moves down.\n\
+    6   Moves right.\n\
+    4   Moves left.\n\
+    H   Shows all hidden objects.\n\
+    h   hide selected objects.\n\
+    t   Makes selected objects transparent.\n\
+    T   Makes all objects solid.\n\
+    u   Deselects all.\n\
+    g   Gives selected particles a different colour.\n\
+    w   Saves the current view to a file (does not work yet).\n\
+    l   Reread current file.\n\
+    <   Moves a cutting plane back.\n\
+    >   Moves a cutting plane forward.\n\
+    c   Changes the background color.\n\
+    /   Makes everything slightly bigger.\n\
+    *   makes everything slightly smaller.\n\
+    [   Loads previous file.\n\
+    ]   Loads next file.\n\
+    \\   Jump 10 frames\n\
+    |   Jump back 10 frames\n\
+    1   Jump 100 frames\n\
+    3   Jump back 100 frames \n\
+    j   makes movie jumping 1 frames each step\n\
+    J   makes movie jumping 10 frames each step\n\
+    m   makes movie jumping 100 frames each step\n\
+    d   nothing interesting.\n\
+    v   Calculated the volume fraction of the spheres (not the other objects).\n\
+    e   Tests for overlap between spheres. Over lapping spheres are selected.\n\
+    q or Esc: Quits.\n\
+    F or Space: Stops the rotation.\n\
+    Enter: Puts the object at rest at the starting position.\n\
+    Home: Moves the objects further away small step.\n\
+    End:  Moves the objects closer small step.\n\
+    Pg Up: Moves the objects further away large step.\n\
+    Pg Dn: Moves the objects closer large step.\n\
+    Up,Down,Left,Right arrows: Change rotation speed.\n");
+}
+
 double sqr(double x){
   return x*x;
 }
@@ -1869,6 +1924,10 @@ void cbSpecialKeyPressed(
 )
 {
    switch (key) {
+   case 1: // F1
+      printhelp();
+      break;
+
    case 106: // move the cube into the distance. home
       Z_Off -= 0.005f;
       redraw=1;
@@ -2204,6 +2263,7 @@ void ourInit(
 
 int main(int argc, char ** argv)
 {
+   //printf("\tPress F1 for a list of keyboard commands\t");
    int is=1;
    glutInit(&argc,argv);
    if(argc == 1) {
@@ -2258,7 +2318,8 @@ int main(int argc, char ** argv)
      ourInit(Window_Width, Window_Height);
 
      // Print out a bit of help dialog.
-     printf("\n" PROGRAM_TITLE "\n\n\
+/*      printf("\n" PROGRAM_TITLE "\n\n\
+          F1  Prints this info\n\
           0   Changes the field of view.\n\
           9   Changes the field of view.\n\
           f   Draws information on the screen.\n\
@@ -2308,7 +2369,7 @@ int main(int argc, char ** argv)
           End:  Moves the objects closer small step.\n\
           Pg Up: Moves the objects further away large step.\n\
           Pg Dn: Moves the objects closer large step.\n\
-          Up,Down,Left,Right arrows: Change rotation speed.\n");
+          Up,Down,Left,Right arrows: Change rotation speed.\n"); */
 
      // Pass off control to OpenGL.
      // Above functions are called as appropriate.
