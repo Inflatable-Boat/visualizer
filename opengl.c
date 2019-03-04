@@ -970,9 +970,10 @@ void drawfps(){
 }
 
 double volfrac(void);
+int Xparticles(void);
 
 void drawinfo(){
-   char buf[128]; // For our strings.
+   char buf[255]; // For our strings.
    glLoadIdentity();
    glMatrixMode(GL_PROJECTION);
    glPushMatrix();
@@ -983,8 +984,10 @@ void drawinfo(){
 
    glColor4f(0.1,0.1,0.1,.75);
   //  sprintf(buf,"Volume Fraction: %lf", volfrac());
-   sprintf(buf, "Frame %d / %ld,    filename %s,    volume fraction %5.3lf",
-           globcur, globbuf.gl_pathc-1, globbuf.gl_pathv[globcur], volfrac());
+  int Xtalline = Xparticles();
+  double prctX = 100.0 * Xtalline / n_part;
+   sprintf(buf, "Frame %d / %ld,    filename %s,    volume fraction %5.3lf,     %d/%d Xtalline (%5.2lf%%)",
+           globcur, globbuf.gl_pathc-1, globbuf.gl_pathv[globcur], volfrac(), Xtalline, n_part, prctX);
    glRasterPos2i(2,14); ourPrintString(GLUT_BITMAP_HELVETICA_12,buf);
   // sprintf(buf,"X: %f", X_Off);
   // glRasterPos2i(2,50); ourPrintString(GLUT_BITMAP_HELVETICA_12,buf);
@@ -1559,6 +1562,15 @@ void printprut(void){
   printf("  | %f | %f | %f |\n"  ,rot_matrix[0],rot_matrix[1],rot_matrix[2]);
   printf("  | %f | %f | %f |\n"  ,rot_matrix[4],rot_matrix[5],rot_matrix[6]);
   printf("  | %f | %f | %f |\n\n",rot_matrix[8],rot_matrix[9],rot_matrix[10]);
+}
+
+int Xparticles(void){
+  int result = 0;
+  for (int i = 0; i < n_part; i++) {
+    if (particles[i].size2 == 1.0)
+      result++;
+  }
+  return result;
 }
 
 double volfrac(void){
