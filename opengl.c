@@ -1256,6 +1256,7 @@ void cbReRenderScene(void){
 }
 
 void quit(){
+  save_povray();
   gluDeleteQuadric(quadObj);
   free(particles);
   glutDestroyWindow(Window_ID);
@@ -1596,28 +1597,28 @@ double volfrac(void){
   int i;
   for(i=0;i<n_part;i++){
     switch (particles[i].soort){
-      case 1: //sphere
+      case 1: // sphere
         partvol+=pow(particles[i].size1/2.0,3)*M_PI*4.0/3.0;
       break;
-      case 2: //cylinder
+      case 2: // cylinder
         partvol+=pow(particles[i].size1/2.0,2)*M_PI*particles[i].size2;
       break;
-      case 3: //spherocylinder
+      case 3: // spherocylinder
         partvol+=pow(particles[i].size1/2.0,3)*M_PI*4.0/3.0+pow(particles[i].size1/2.0,2)*M_PI*particles[i].size2;
       break;
-      case 6: //cube
+      case 6: // cube
        partvol+=pow(particles[i].size1,3);
       break;
-      case 7: //poly
+      case 7: // poly
        partvol+=0.0;
       break;
-      case 8: //poly
+      case 8: // poly
        partvol+=0.0;
       break;
-      case 9: //poly
+      case 9: // poly
        partvol+=0.0;
       break;
-      case 10: //poly // assumes edge length 1 and every particle the same
+      case 10: // poly // assumes edge length 1 and every particle the same
        partvol = sin(particles[i].angle) * n_part;
        return partvol / volume_ruud;
 
@@ -1650,20 +1651,20 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
    char pngfile[255];
    int i;
    switch (key) {
-   case 114: //r
+   case 114: // r
      globfree(&globbuf);
      readcmdl();
      break;
-   case 118: //v
+   case 118: // v
       printvolfrac();
       break;
-   case 101: //e
+   case 101: // e
       unselect();
       overlaptest();
       rebuild=1;
       redraw=1;
       break;
-   case 57: //0
+   case 57: // 0
       if(fov > 5.0){
         Z_Off=Z_Off/((fov-1.0f)/(fov));
         cut_dist=cut_dist/((fov-1.0f)/(fov));
@@ -1671,7 +1672,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
         redraw=1;
       }
       break;
-   case 48: //9
+   case 48: // 9
       if(fov < 120){
         Z_Off=Z_Off/((fov+1.0f)/(fov));
         cut_dist=cut_dist/((fov+1.0f)/(fov));
@@ -1687,11 +1688,11 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       ortho=!ortho;
       redraw=1;
       break;
-   case 98: //b removes the bounding box
+   case 98: // b removes the bounding box
       boundingbox=!boundingbox;
       redraw=1;
       break;
-   case 105: //i
+   case 105: // i
       invert_selection();
       rebuild=1;
       redraw=1;
@@ -1706,7 +1707,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       temp_movie_time(100);
       break;
 
-   case 97: //a
+   case 97: // a
       temp_movie_rot();
       break;
 
@@ -1723,7 +1724,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       quit();
       break; // exit doesn't return, but anyway...
 
-   case 115: //s
+   case 115: // s
       lighton++;
       if(lighton > 30) lighton =1;
       redraw=1;
@@ -1783,7 +1784,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       }
       break;
 
-   case 72: //H
+   case 72: // H
       unhide();
       rebuild=1;
       redraw=1;
@@ -1813,18 +1814,18 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       redraw=1;
       break;
 
-   case 103: //g
+   case 103: // g
       green();
       rebuild=1;
       redraw=1;
       break;
 
-   case 119: //w
+   case 119: // w
       save_povray();
-      printf("Saved!\n");
+      // printf("Saved!\n");
       break;
 
-   case 108: //l
+   case 108: // l
       load();
       rebuild=1;
       redraw=1;
@@ -1839,7 +1840,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       //cull=0;
       redraw=1;
       break;
-   case 83: //S
+   case 83: // S
       toggle_filter();
       redraw=1;
       rebuild=1;
@@ -1861,7 +1862,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       redraw=1;
       break;
 
-   case 91: //[
+   case 91: // [
       if(globcur > 0) {
         globcur--;
         load();
@@ -1886,7 +1887,7 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
       }
       break;
 
-   case 93: //]
+   case 93: // ]
       if(globcur < globbuf.gl_pathc-1) {
         globcur++;
         load();
@@ -1894,19 +1895,19 @@ void cbKeyPressed( unsigned char key, int x, int y ) {
         redraw=1;
       }
       break;
-   case 123: //{
+   case 123: // {
       globcur=0;
       load();
       rebuild=1;
       redraw=1;
       break;
-   case 125: //}
+   case 125: // }
       globcur = globbuf.gl_pathc-1;
       load();
       rebuild=1;
       redraw=1;
       break;
-   case 100: //d
+   case 100: // d
       printprut();
       break;
 
@@ -2109,7 +2110,7 @@ void mouse_pressed(int button, int state, int x, int y){
       }else mouse2_pressed=0;
       redraw=1;
       break;
-    case GLUT_RIGHT_BUTTON: //menu is bound to third button
+    case GLUT_RIGHT_BUTTON: // menu is bound to third button
       if (!state) {
         X_Speed = 0;
         Y_Speed = 0;
@@ -2230,6 +2231,14 @@ void ourInit(
    particles=(tPart*) malloc(n_part*sizeof(tPart));
    load();
 
+  // if there is a previous pov file, read it in
+  FILE* fp = fopen("pov.txt", "r");
+  if (fp) {
+    for (int i = 0; i < 16; i++) {
+      fscanf(fp, "%f ", &rot_matrix[i]);
+    }
+  }
+
   //For the cylinders
    quadObj = gluNewQuadric();
    gluQuadricOrientation(quadObj, GLU_OUTSIDE);
@@ -2328,6 +2337,9 @@ int main(int argc, char ** argv)
 
      // OK, OpenGL's ready to go.  Let's call our own init function.
      ourInit(Window_Width, Window_Height);
+    //  load();
+    //  rebuild = 1;
+    //  redraw = 1;
 
      // Print out a bit of help dialog.
 /*      printf("\n" PROGRAM_TITLE "\n\n\

@@ -1075,7 +1075,13 @@ void rotv2(GLfloat m[16], GLfloat v[3]){
 }
 
 void save_povray(){
-  int i;
+  FILE *fp = fopen("pov.txt", "w");
+  for (int i = 0; i < 16; i++) {
+    fprintf(fp, "%lf ", (double) rot_matrix[i]);
+  }
+  fclose(fp);
+
+  /* int i;
   FILE *f=fopen("coords_opengl.pov","w");
 
   GLfloat loc[3]={0.0f,0.0f,5.0f};
@@ -1148,5 +1154,5 @@ void save_povray(){
       #end\n\
       #declare i=i+1;\n\
     #end\n\n");
-  fclose(f);
+  fclose(f); */
 }
