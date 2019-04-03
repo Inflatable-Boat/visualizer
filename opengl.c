@@ -1051,9 +1051,9 @@ void move_xy(GLfloat dx, GLfloat dy){
     particles[i].z-=z;
 
     //periodic boundary
-    a=particles[i].x*h_inv[0][0]+particles[i].y*h_inv[1][0]+particles[i].z*h_inv[2][0];
-    b=particles[i].x*h_inv[0][1]+particles[i].y*h_inv[1][1]+particles[i].z*h_inv[2][1];
-    c=particles[i].x*h_inv[0][2]+particles[i].y*h_inv[1][2]+particles[i].z*h_inv[2][2];
+    a=1+particles[i].x*h_inv[0][0]+particles[i].y*h_inv[1][0]+particles[i].z*h_inv[2][0];
+    b=1+particles[i].x*h_inv[0][1]+particles[i].y*h_inv[1][1]+particles[i].z*h_inv[2][1];
+    c=1+particles[i].x*h_inv[0][2]+particles[i].y*h_inv[1][2]+particles[i].z*h_inv[2][2];
 
     if(a>0.5) {
       particles[i].x -= h[0][0];
